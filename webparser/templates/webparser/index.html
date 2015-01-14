@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'webparser/style.css' %}" />
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'parse' %}" method="post">
+    {% csrf_token %}
+    <label for="url">Урлы для пробивки</label><br />
+    <textarea name="url" rows="10" cols="45">{% if post %}{{ post }}{% endif %}</textarea><br />
+    <input type="submit" value="Пробить" />
+</form>
+{% if context %}
+    <ul>
+    {% for site_url in context %}
+        <li>
+            <a href="{{ site_url.url }}">{{ site_url.url }}</a><br />
+            <b>Response code:</b> {{ site_url.code }}<br />
+            <b>T:</b> {{ site_url.title }}<br />
+            <b>K:</b> {{ site_url.keywords }}<br />
+            <b>D:</b> {{ site_url.description }}<br />
+            <b>H1:</b> {{ site_url.h1 }}<br />
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No results are available.</p>
+{% endif %}

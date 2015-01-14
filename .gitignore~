@@ -1,0 +1,5 @@
+webparser/__pycache__/
+webspyder/__pycache__/
+webparser/settings.py
+out.html
+*.sqlite3
